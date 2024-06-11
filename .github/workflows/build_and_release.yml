@@ -2,6 +2,11 @@ name: Build and Release Executable
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version (optional)'
+        required: false
+        default: 'snapshot-${{ github.run_number }}'
 
 jobs:
   build:
@@ -46,10 +51,17 @@ jobs:
           name: main-${{ matrix.os }}
           path: dist/main-${{ matrix.os }}*
 
+      - name: Create and push tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag ${{ github.event.inputs.version }} ${{ github.sha }}
+          git push origin ${{ github.event.inputs.version }}
+
       - name: Upload executable to release
-        if: github.event_name == 'workflow_dispatch'
         uses: softprops/action-gh-release@v1
         with:
           files: dist/main-${{ matrix.os }}*
+          tag_name: ${{ github.event.inputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
