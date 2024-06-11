@@ -17,9 +17,6 @@ jobs:
         os: [windows-latest, ubuntu-latest]
 
     steps:
-      - name: Install UPX
-        run: sudo apt-get install -y upx
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -34,14 +31,27 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
+      - name: Verify PyInstaller installation
+        run: pyinstaller --version
+
       - name: Build executable with PyInstaller
-        uses: sayyid5416/pyinstaller@v1
+        run: pyinstaller --onefile --hidden-import=pypresence --hidden-import=requests --hidden-import=dotenv main.py
+
+      - name: Rename executable
+        run: |
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            mv dist/main.exe dist/windows-${{ github.event.inputs.version }}.exe
+          elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            mv dist/main dist/linux-${{ github.event.inputs.version }}
+            chmod +x dist/linux-${{ github.event.inputs.version }}
+          fi
+        shell: bash
+
+      - name: Upload entire dist directory
+        uses: actions/upload-artifact@v2
         with:
-          python_ver: '3.10'
-          spec: 'main.py'
-          requirements: 'requirements.txt'
-          options: --onefile --upx-dir /usr/bin
-          upload_exe_with_name: 'executable-${{ matrix.os }}-${{ github.event.inputs.version }}'
+          name: dist-${{ github.run_number }}
+          path: ./dist
 
       - name: Create and push tag
         run: |
