@@ -1,14 +1,16 @@
+import os
 import requests
 from pypresence import Presence
 import time
 from dotenv import load_dotenv
-import os
 
 # Load environment variables from .env file
 load_dotenv()
 
-# Get the API key from environment variables
+# Get the API key from environment variables or prompt the user
 API_KEY = os.getenv('API_KEY')
+if not API_KEY:
+    API_KEY = input("Please enter your API key: ")
 
 # Base URL for Onshape API
 BASE_URL = 'https://cad.onshape.com/api'
