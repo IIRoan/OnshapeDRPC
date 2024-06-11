@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: main-${{ matrix.os }}-${{ github.event.inputs.version }}
-          path: dist/*-${{ github.event.inputs.version }}*
+          path: dist/*
 
       - name: Create and push tag
         run: |
