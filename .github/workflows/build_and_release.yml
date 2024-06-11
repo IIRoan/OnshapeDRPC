@@ -42,8 +42,8 @@ jobs:
           if [ "${{ runner.os }}" == "Windows" ]; then
             mv dist/main.exe dist/windows-${{ github.event.inputs.version }}.exe
           else
-            mv dist/main dist/linux-${{ github.event.inputs.version }}
-            chmod +x dist/linux-${{ github.event.inputs.version }}
+            mv dist/main dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}
+            chmod +x dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}
           fi
         shell: bash
 
@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: main-${{ matrix.os }}-${{ github.event.inputs.version }}
-          path: dist/*
+          path: dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}*
 
       - name: Create and push tag
         run: |
