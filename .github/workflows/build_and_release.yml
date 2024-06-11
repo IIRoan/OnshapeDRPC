@@ -41,29 +41,29 @@ jobs:
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
             mv dist/main.exe dist/windows-${{ github.event.inputs.version }}.exe
-          else
-            mv dist/main dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}
-            chmod +x dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}
+          elif [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            mv dist/main dist/linux-${{ github.event.inputs.version }}
+            chmod +x dist/linux-${{ github.event.inputs.version }}
           fi
         shell: bash
 
       - name: Upload executable as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: main-${{ matrix.os }}-${{ github.event.inputs.version }}*
-          path: dist/main-${{ matrix.os }}-${{ github.event.inputs.version }}*
+          name: ${{ runner.os }}-${{ github.event.inputs.version }}
+          path: dist/${{ runner.os }}-${{ github.event.inputs.version }}*
 
       - name: Create and push tag
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag ${{ github.event.inputs.version }} ${{ github.sha }}
+          git tag ${{ github.event.inputs. version }} ${{ github.sha }}
           git push origin ${{ github.event.inputs.version }}
 
       - name: Upload executable to release
         uses: softprops/action-gh-release@v1
         with:
-          files: dist/main-${{ matrix.os }}*
+          files: dist/${{ runner.os }}-${{ github.event.inputs.version }}*
           tag_name: ${{ github.event.inputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
