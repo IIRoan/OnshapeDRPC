@@ -40,9 +40,10 @@ jobs:
       - name: Rename executable
         run: |
           if [ "${{ runner.os }}" == "Windows" ]; then
-            mv dist/main.exe dist/main-${{ matrix.os }}.exe
+            mv dist/main.exe dist/windows-${{ github.event.inputs.version }}.exe
           else
-            mv dist/main dist/main-${{ matrix.os }}
+            mv dist/main dist/linux-${{ github.event.inputs.version }}
+            chmod +x dist/linux-${{ github.event.inputs.version }}
           fi
         shell: bash
 
