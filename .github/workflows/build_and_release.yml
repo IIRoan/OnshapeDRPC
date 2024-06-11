@@ -57,7 +57,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git tag ${{ github.event.inputs. version }} ${{ github.sha }}
+          git tag ${{ github.event.inputs.version }} ${{ github.sha }}
           git push origin ${{ github.event.inputs.version }}
 
       - name: Upload executable to release
