@@ -15,6 +15,10 @@ Before you begin, ensure you have met the following requirements:
 
 ## Setup Instructions
 
+## Usage
+go to the releases page and download either the .exe or the Linux version, run the file and follow instructions on screen. 
+
+
 ### Clone the Repository
 
 Clone the repository using the following command:
