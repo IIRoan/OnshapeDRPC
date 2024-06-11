@@ -18,7 +18,6 @@ Before you begin, ensure you have met the following requirements:
 ## Usage
 go to the releases page and download either the .exe or the Linux version, run the file and follow instructions on screen. 
 
-
 ### Clone the Repository
 
 Clone the repository using the following command:
@@ -51,7 +50,7 @@ Install the required Python packages:
 
 Create a `.env` file in the root directory of the project and add your 
 Onshape API key:
-please note that the API key you get from Onshape isnt base64 encoded, you need to encode it yourself please read 
+please note that the 2 API keys you get from Onshape are not base64 encoded, you need to encode it yourself please read
 https://onshape-public.github.io/docs/auth/apikeys/
 
 ``` API_KEY='your_base64_encoded_api_key'```
