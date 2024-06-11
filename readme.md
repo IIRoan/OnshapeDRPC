@@ -1,6 +1,7 @@
 # Onshape Discord Rich Presence Integration
 
 This project integrates Onshape API with Discord Rich Presence to display the user's current CAD project and username on Discord. It fetches the user's active document from Onshape and updates their Discord status to reflect the document they are currently editing.
+![example](https://github.com/IIRoan/OnshapeDRPC/assets/82589897/ae363ec4-98f1-47be-ba71-154d61df94b3)
 
 ## Features
 
