@@ -69,14 +69,15 @@ try:
         print(f'Name: {document_name}')
         print(f'Last Modified: {last_modified}')
         
-        # Update Discord Rich Presence
+        # Update Discord Rich Presence with a button linking to the GitHub project
         rpc.update(
             state=f"Editing: {document_name}",
             details=f"User: {user_name}",
             large_image="onshape_logo",
-            large_text="Onshape",
+            large_text="Onshape CAD",
             small_image="onshape_logo",  
-            small_text=user_name
+            small_text="IIRoan/OnshapeDRPC",
+            buttons=[{"label": "Onshape CAD", "url": "https://cad.onshape.com"}] 
         )
     else:
         print("No active document found.")
